@@ -33,10 +33,8 @@ class ProductManager {
         
     }
 
-    getProducts(){
-        for(let i = 0; i < this.products.length; i++) {
-            return this.products[i]
-        }
+    getProducts() {
+        return this.products;
     }
 
     getProductById(codeProduct){

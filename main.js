@@ -46,3 +46,8 @@ class ProductManager {
         }
     }
 }
+
+
+
+//fs.writeFileSync("archivo.json","primer archivo creado")
+

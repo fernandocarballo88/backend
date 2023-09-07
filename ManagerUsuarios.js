@@ -2,25 +2,30 @@
 
 const fs = require ("fs")
 
-const products = [
-    {
-        title,
-        description,
-        price,
-        thumbnail,
-        code,
-        stock,
+
+class ProductManager{
+    constructor(){
+        this.path = "./productsjson.txt"
     }
-]
 
-fs.promises.writeFile("products.json",JSON.stringify(products))
-.then(()=>console.log("archivo creado existosamente"))
-.catch(error=>console.log(error))
+    static id = 0
 
+    async addProducts(title,description,price,thumbnail,code,stock,){
+        
+        ProductManager.id+1
 
-class UserManager{
-    constructor(path){
-        this.path = path
+        const newProduct = {
+            title,
+            description,
+            price,
+            thumbnail,
+            code,
+            stock,
+            id: ProductManager.id
+        }
+
+        await fs.promises.writeFile("./productsjson.txt","aqui van los productos")
+
     }
 
     async getProduct(){
@@ -76,6 +81,6 @@ class UserManager{
             return error
         }
     }
-
-
 }
+
+const productos = new ProductManager

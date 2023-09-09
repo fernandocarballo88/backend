@@ -6,13 +6,21 @@ const fs = require ("fs")
 class ProductManager{
     constructor(){
         this.path = "./productsjson.txt"
+
+        if(!fs.existsSync(this.path)){
+            fs.promises.writeFile(this.path,JSON.stringify([]))
+        }
     }
 
     static id = 0
 
+
+    //comprobar validacion
+
+
     async addProducts(title,description,price,thumbnail,code,stock,){
         
-        ProductManager.id+1
+        const id = ProductManager.id+1
 
         const newProduct = {
             title,
@@ -21,20 +29,24 @@ class ProductManager{
             thumbnail,
             code,
             stock,
-            id: ProductManager.id
+            id,
         }
 
-        await fs.promises.writeFile("./productsjson.txt","aqui van los productos")
+        // esto debe eestar en otra funcion.
+        const products = await this.getProduct()
+        products.push(newProduct)
+
+        await fs.promises.writeFile(this.path, JSON.stringify(products))
+
 
     }
 
+
     async getProduct(){
         try {
-            if(fs.existsSync(this.path)){
                 const info = await fs.promises.readFile(this.path, "utf-8")
-                return JSON.parse(info)
-            } else {
-                return []}        
+                const cleanProducts = JSON.parse(info)
+                return cleanProducts
         } catch (error) {
             return error
         }
@@ -42,7 +54,8 @@ class ProductManager{
 
 
 
-    async createProduct(prod){
+
+    async createProduct(){
         try {
             const productos = await this.getProduct()
             productos.push(prod)
@@ -81,6 +94,22 @@ class ProductManager{
             return error
         }
     }
+
+    async updateProduct(id){
+        await this.deleteProduct(id)
+        const productUpdate = await this.addProducts(title,description,price,thumbnail,code,stock,id)
+        products.push(productUpdate)
+    }
 }
 
-const productos = new ProductManager
+
+
+
+/*
+const ManagerProductos = new ProductManager()
+async function subirProductos(){
+await ManagerProductos.addProducts("telefono", "lindo", 500, 1, 2)
+await ManagerProductos.addProducts("televisor", "grande", 300, 1, 2)
+}
+
+subirProductos()

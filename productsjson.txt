@@ -1,0 +1,1 @@
+[{"title":"telefono","description":"lindo","price":500,"thumbnail":1,"code":2,"id":1},{"title":"televisor","description":"grande","price":300,"thumbnail":1,"code":2,"id":1}]

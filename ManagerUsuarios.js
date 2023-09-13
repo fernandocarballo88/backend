@@ -112,4 +112,4 @@ await ManagerProductos.addProducts("telefono", "lindo", 500, 1, 2)
 await ManagerProductos.addProducts("televisor", "grande", 300, 1, 2)
 }
 
-subirProductos()
+subirProductos()*/

@@ -1,6 +1,7 @@
 
 
-const fs = require ("fs")
+import fs from "fs"
+
 
 
 class ProductManager{
@@ -55,11 +56,13 @@ class ProductManager{
 
 
 
-    async createProduct(){
+    async createProduct(prod){
         try {
             const productos = await this.getProduct()
-            productos.push(prod)
+            const newProduct = {prod}
+            productos.push(newProduct)
             await fs.promises.writeFile(this.path,JSON.stringify(productos))
+            return newProduct
 
         } catch (error) {
             return error
@@ -73,16 +76,11 @@ class ProductManager{
         try {
             const products = await this.getProduct()
             const product = products.find(p=>p.id === idProduct)
-            if(product){
-                return product
-            } else {
-                return "no existe producto"
-            }
-            
+            return product
+        
         } catch (error) {
             return error
         }
-
     }
 
     async deleteProduct(idProduct){
@@ -103,7 +101,7 @@ class ProductManager{
 }
 
 
-
+export const productManager = new ProductManager("Productos.json")
 
 /*
 const ManagerProductos = new ProductManager()

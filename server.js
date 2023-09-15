@@ -1,12 +1,13 @@
 // npm init -y para ver package.jason
 
 import express from "express"
+import { productManager } from "./ManagerProductos.js"
 
 const app = express()
 // no es necesario que se appa, puede ser cualquier nombre
 // generalmente se nombra la constante app
 
-const productos = [
+/*const productos = [
     {
         id:1,
         nombre:"heladera"
@@ -19,7 +20,49 @@ const productos = [
         id:3,
         nombre:"cocina"
     }
-]
+]*/
+
+
+app.get("/productos", async(req, res)=>{
+    try {
+        const products = await productManager.getProduct()
+        if (!products.lenght) {
+            res.status(200).json({message: "no hay productos"})
+        } else {
+            res.status(200).json({message: "productos encontrados", products})
+
+        }
+    } catch (error) {
+        res.status(500).json({message: error})
+    }
+})
+
+app.get("/productos/:idProductos", async(req, res)=>{
+    const {idProducto} = req.params
+    try {
+        const product = await productManager.getProductById(+idProducto)
+        if (!product) {
+            res.status(400).json({message: "no se encontro producto"})
+        } else {
+            res.status(200).json({message: "productos encontrados", product})
+        }
+    } catch (error) {
+        res.status(500).json({message: error})
+    }
+})
+
+app.post("/productos", async(req, res)=>{
+    try {
+        const newProduct = await productManager.createProduct(req.body)
+        res.status(200).json({message: "producto creado",producto:newProduct})
+
+    } catch (error) {
+        res.status(500).json({message: error})
+
+    }
+})
+
+
 
 app.get("/",(req,res)=>{
     res.send("Hola Puto")
@@ -46,5 +89,5 @@ app.get("/prod",(req,res)=>{
 
 
 app.listen(8080,()=>{
-    console.log("escuchando apppus");
+    console.log("escuchando app");
 })

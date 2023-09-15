@@ -4,8 +4,11 @@ import express from "express"
 import { productManager } from "./ManagerProductos.js"
 
 const app = express()
-// no es necesario que se appa, puede ser cualquier nombre
+// no es necesario que se app, puede ser cualquier nombre
 // generalmente se nombra la constante app
+
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 
 /*const productos = [
     {

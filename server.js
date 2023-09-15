@@ -45,7 +45,7 @@ app.get("/productos/:idProductos", async(req, res)=>{
     try {
         const product = await productManager.getProductById(+idProducto)
         if (!product) {
-            res.status(400).json({message: "no se encontro producto"})
+            res.status(400).json({message: "no se encontro producto"}) 
         } else {
             res.status(200).json({message: "productos encontrados", product})
         }
@@ -64,6 +64,32 @@ app.post("/productos", async(req, res)=>{
 
     }
 })
+
+app.delete("/productos/:idProductos", async(req, res)=>{
+    const {idProducto} = req.params
+    try {
+        const response = await productManager.deleteProduct(+idProducto)
+        if(response === -1){
+            res.status(400).json({message: "no se encontro producto"})
+        } else {
+            res.status(200).json({message: "productos eliminado"})
+        }
+    } catch (error) {
+        res.status(500).json({message: error})
+    }
+})
+
+app.put("/productos/:idProductos", async(req, res)=>{
+    const {idProducto} = req.params
+    try {
+        const updateProduct = await productManager.updateProduct
+    } catch (error) {
+        res.status(500).json({message: error})
+
+    }
+
+})
+
 
 
 

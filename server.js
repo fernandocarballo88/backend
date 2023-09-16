@@ -72,7 +72,7 @@ app.delete("/productos/:idProductos", async(req, res)=>{
         if(response === -1){
             res.status(400).json({message: "no se encontro producto"})
         } else {
-            res.status(200).json({message: "productos eliminado"})
+            res.status(200).json({message: "producto eliminado"})
         }
     } catch (error) {
         res.status(500).json({message: error})
@@ -83,6 +83,11 @@ app.put("/productos/:idProductos", async(req, res)=>{
     const {idProducto} = req.params
     try {
         const updateProduct = await productManager.updateProduct
+        if(updateProduct === -1){
+            res.status(400).json({message: "no se encontro producto"})
+        } else {
+            res.status(200).json({message: "producto actualizado"})
+        }
     } catch (error) {
         res.status(500).json({message: error})
 

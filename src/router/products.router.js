@@ -1,32 +1,9 @@
-// npm init -y para ver package.jason
+import { Router } from "express";
+import { productManager } from "../ManagerProductos.js";
 
-import express from "express"
-import { productManager } from "./ManagerProductos.js"
+const router = Router()
 
-const app = express()
-// no es necesario que se app, puede ser cualquier nombre
-// generalmente se nombra la constante app
-
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-
-/*const productos = [
-    {
-        id:1,
-        nombre:"heladera"
-    },
-    {
-        id:2,
-        nombre:"televisor"
-    },
-    {
-        id:3,
-        nombre:"cocina"
-    }
-]*/
-
-
-app.get("/productos", async(req, res)=>{
+router.get("/productos", async(req, res)=>{
     try {
         const products = await productManager.getProduct()
         if (!products.lenght) {
@@ -40,7 +17,7 @@ app.get("/productos", async(req, res)=>{
     }
 })
 
-app.get("/productos/:idProductos", async(req, res)=>{
+router.get("/productos/:idProductos", async(req, res)=>{
     const {idProducto} = req.params
     try {
         const product = await productManager.getProductById(+idProducto)
@@ -54,7 +31,7 @@ app.get("/productos/:idProductos", async(req, res)=>{
     }
 })
 
-app.post("/productos", async(req, res)=>{
+router.post("/productos", async(req, res)=>{
     try {
         const newProduct = await productManager.createProduct(req.body)
         res.status(200).json({message: "producto creado",producto:newProduct})
@@ -65,7 +42,7 @@ app.post("/productos", async(req, res)=>{
     }
 })
 
-app.delete("/productos/:idProductos", async(req, res)=>{
+router.delete("/productos/:idProductos", async(req, res)=>{
     const {idProducto} = req.params
     try {
         const response = await productManager.deleteProduct(+idProducto)
@@ -79,7 +56,7 @@ app.delete("/productos/:idProductos", async(req, res)=>{
     }
 })
 
-app.put("/productos/:idProductos", async(req, res)=>{
+router.put("/productos/:idProductos", async(req, res)=>{
     const {idProducto} = req.params
     try {
         const updateProduct = await productManager.updateProduct
@@ -98,12 +75,12 @@ app.put("/productos/:idProductos", async(req, res)=>{
 
 
 
-app.get("/",(req,res)=>{
-    res.send("Hola Puto")
+router.get("/",(req,res)=>{
+    res.send("Hola")
     //por req.params envio info dinamica, por ejemplo ID de un Usuario
 })
 
-app.get("/productos/idProducto",(req, res)=>{
+router.get("/productos/idProducto",(req, res)=>{
     const {idProducto} = req.params
     // lo que viene de req.params es en string
     const producto = productos.find(p=>p.id === +idProducto)
@@ -111,17 +88,4 @@ app.get("/productos/idProducto",(req, res)=>{
     res.json({message:"producto es ", producto})
 })
 
-app.get("/pag1",(req,res)=>{
-    res.send("Agarrame esta")
-    //res.json (se utiliza para mandar productos o información) ({message:"Agarrame esta"})
-})
-
-app.get("/prod",(req,res)=>{
-    res.json({mesage:"estos son los Objtetos", productos})
-    // ejemplo de como mostrar arrays
-})
-
-
-app.listen(8080,()=>{
-    console.log("escuchando app");
-})
+export default router

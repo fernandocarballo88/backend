@@ -6,5 +6,5 @@ const server = http.createServer()
 
 
 server.listen(8080,()=>{
-    console.log("Escuchandoooooo");
+    console.log("Escuchando");
 })

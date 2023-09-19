@@ -3,13 +3,20 @@
 import express from "express"
 import productsRouter from "./router/products.router.js"
 const app = express()
-// no es necesario que se app, puede ser cualquier nombre 
+// no es necesario que se app, puede ser cualquier nombre  
 // generalmente se nombra la constante app
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+import {dirname} from "path"
+import { fileURLToPath } from "url"
 
-app.use("/products", productsRouter)
+const __dirname = dirname(fileURLToPath(import.meta.url))
+console.log("__dirname", dirname);
+
+app.use(express.json())
+app.use(express.urlencoded({ extended:true }))
+app.use(express.static(__dirname+"/public"))
+
+app.use("/api/products", productsRouter);
 
 /*
 app.get("/pag1",(req,res)=>{
@@ -25,5 +32,5 @@ app.get("/prod",(req,res)=>{
 */
 
 app.listen(8080,()=>{
-    console.log("escuchando appp");
-})
+    console.log("escuchando app");
+});

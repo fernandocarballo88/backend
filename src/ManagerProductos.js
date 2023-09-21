@@ -55,8 +55,6 @@ class ProductManager{
     }
 
 
-
-
     async createProduct(prod){
         try {
             const productos = await this.getProduct()

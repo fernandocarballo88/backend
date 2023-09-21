@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { productManager } from "../ManagerProductos.js";
-
+import { __dirname } from "../utils.js";
 const router = Router()
 
 router.get("/api/productos", async(req, res)=>{
@@ -70,6 +70,17 @@ router.put("/productos/:idProductos", async(req, res)=>{
 
     }
 
+})
+
+router.post("/api/carts", async(req, res)=>{
+    try {
+        const newProduct = await productManager.createProduct(req.body)
+        res.status(200).json({message: "producto creado",producto:newProduct})
+
+    } catch (error) {
+        res.status(500).json({message: error})
+
+    }
 })
 
 

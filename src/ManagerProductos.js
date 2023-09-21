@@ -43,11 +43,12 @@ class ProductManager{
     }
 
 
-    async getProduct(){
+    async getProduct(queryObj){
+        const { limit } = queryObj
         try {
                 const info = await fs.promises.readFile(this.path, "utf-8")
                 const cleanProducts = JSON.parse(info)
-                return cleanProducts
+                return limit ? cleanProducts.slice(0, limit) : cleanProducts
         } catch (error) {
             return error
         }

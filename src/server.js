@@ -2,15 +2,12 @@
 
 import express from "express"
 import productsRouter from "./router/products.router.js"
+import {__dirname} from "./utils.js"
 const app = express()
 // no es necesario que se app, puede ser cualquier nombre  
 // generalmente se nombra la constante app
 
-import {dirname} from "path"
-import { fileURLToPath } from "url"
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-console.log("__dirname", dirname);
 
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))

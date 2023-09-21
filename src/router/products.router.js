@@ -3,7 +3,7 @@ import { productManager } from "../ManagerProductos.js";
 
 const router = Router()
 
-router.get("/productos", async(req, res)=>{
+router.get("/api/productos", async(req, res)=>{
     try {
         const products = await productManager.getProduct()
         if (!products.lenght) {
@@ -17,7 +17,7 @@ router.get("/productos", async(req, res)=>{
     }
 })
 
-router.get("/productos/:idProductos", async(req, res)=>{
+router.get("/api/productos/:idProductos", async(req, res)=>{
     const {idProducto} = req.params
     try {
         const product = await productManager.getProductById(+idProducto)

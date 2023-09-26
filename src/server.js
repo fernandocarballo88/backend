@@ -2,6 +2,7 @@
 
 import express from "express"
 import productsRouter from "./router/products.router.js"
+import cartRouter from "./router/cart.router.js"
 import {__dirname} from "./utils.js"
 const app = express()
 // no es necesario que se app, puede ser cualquier nombre  
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended:true }))
 app.use(express.static(__dirname+"/public"))
 
 app.use("/api/products", productsRouter);
+app.use("api/cart", cartRouter);
 
 /*
 app.get("/pag1",(req,res)=>{

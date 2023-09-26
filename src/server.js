@@ -37,7 +37,8 @@ app.get("/prod",(req,res)=>{
 
 */
 
+const PORT = 8080;
 
-app.listen(8080,()=>{
-    console.log("escuchando app");
+app.listen(PORT,()=>{
+    console.log(`escuchando al puerto ${PORT}`);
 });

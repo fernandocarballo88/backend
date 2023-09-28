@@ -6,6 +6,7 @@ import usersRouter from "./router/users.router.js"
 import {__dirname} from "./utils.js"
 import { engine } from "express-handlebars";
 import viewsRouter from "./router/views.router.js"
+import { Server } from "socket.io"
 const app = express()
 // no es necesario que se app, puede ser cualquier nombre  
 // generalmente se nombra la constante app
@@ -39,6 +40,24 @@ app.get("/prod",(req,res)=>{
 
 const PORT = 8080;
 
-app.listen(PORT,()=>{
+const httpserver = app.listen(PORT,()=>{
     console.log(`escuchando al puerto ${PORT}`);
+});
+
+const socketServer = new Server(httpserver)
+
+const names = []
+socketServer.on("conection", (socket)=>{
+    //console.log(`cliente conectado`);
+    socket.on("disconnect", ()=>{
+        //console.log(`cliente desconectado ${socket.id}`);
+    });
+
+    socket.on("primerevento", (info) =>{
+        names.push(info);
+        //console.log(`Array : ${names}`);
+        //socket.emit("segundoevento", names)
+        socketServer.emit("segundoevento", names)
+    })
+
 });

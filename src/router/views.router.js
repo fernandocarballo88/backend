@@ -15,5 +15,8 @@ router.get("/chat",(req,res)=>{
     res.render("chat")
 })
 
+router.get("/realtimeproducts",(req,res)=>{
+    res.render("realTimeProducts")
+})
 
 export default router

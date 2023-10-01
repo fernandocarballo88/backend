@@ -1,17 +1,37 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+<body>
 
 <h3>Home Handle Bars</h3>
 
-<h2 id="name"></h2>
-<form action="/api/products" method="post" id="productform">
 
-name <input type="text" name="productname" id="product">
-id <input type="number" id="idproduct">
-price <input type="number" name="productprice" id="productprice">
-stock <input type="number" name="productstock" id="productstock">
-<input type="submit" value="SUBMIT">
-</form>
+{{#each products}}
+<tr>
+    <td>{{title}}</td>
+    <td>{{description}}</td>
+    <td>{{price}}</td>
+</tr>
+{{/each}}
+    
+</body>
+</table>
+</html>
 
 
-<div id="chat"></div>
+
+

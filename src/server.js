@@ -5,8 +5,10 @@ import productsRouter from "./router/products.router.js"
 import usersRouter from "./router/users.router.js"
 import {__dirname} from "./utils.js"
 import { engine } from "express-handlebars";
+import handlebars from "express-handlebars"
 import viewsRouter from "./router/views.router.js"
 import { Server } from "socket.io"
+import { productManager } from "./ManagerProductos.js"
 const app = express()
 // no es necesario que se app, puede ser cualquier nombre  
 // generalmente se nombra la constante app
@@ -17,7 +19,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
 app.use(express.static(__dirname+"/public"))
 
-app.engine('handlebars', engine());
+app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
 app.set('views', __dirname+'/views');
 
@@ -59,5 +61,14 @@ socketServer.on("conection", (socket)=>{
         //socket.emit("segundoevento", names)
         socketServer.emit("segundoevento", names)
     })
+});
 
+
+socketServer.on("connection", (socket)=>{
+    console.log(`cliente conectado : ${socket.id}`);
+
+socket.on(`crearproduct`, async (product)=>{
+    const newProduct = await productManager.createProduct(product)
+    socket.emit(`productCreated`, newProduct)
+})
 });

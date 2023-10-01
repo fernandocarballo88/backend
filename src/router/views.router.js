@@ -15,6 +15,10 @@ router.get("/chat",(req,res)=>{
     res.render("chat")
 })
 
+router.get("/home",(req,res)=>{
+    res.render("home")
+})
+
 router.get("/realtimeproducts",(req,res)=>{
     res.render("realTimeProducts")
 })

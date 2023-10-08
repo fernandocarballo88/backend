@@ -19,9 +19,11 @@ class StudentsManager {
 
     async updateOne(id,obj){
         const response = await studentsModel.updateOne({_id:id}, { obj });
+        return response
     }
 
     async deleteOne(id){
         const response = await studentsModel.findByIdAndDelete(id)
+        return response
     }
 }

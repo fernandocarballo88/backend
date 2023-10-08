@@ -1,4 +1,4 @@
-import { studentsModel } from "./db/models/students.models";
+import { studentsModel } from "./db/models/students.models.js";
 
 class StudentsManager {
 
@@ -27,3 +27,5 @@ class StudentsManager {
         return response
     }
 }
+
+export const studentsManager = new StudentsManager();

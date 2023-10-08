@@ -18,7 +18,7 @@ class StudentsManager {
     }
 
     async updateOne(id,obj){
-        const response = await studentsModel.updateOne({_id:id}, {$set: obj});
+        const response = await studentsModel.updateOne({_id:id}, { obj });
     }
 
     async deleteOne(id){

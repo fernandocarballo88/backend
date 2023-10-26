@@ -1,1 +1,1 @@
-[{"title":"telefono","description":"lindo","price":500,"thumbnail":1,"code":2,"id":1},{"title":"televisor","description":"grande","price":300,"thumbnail":1,"code":2,"id":1}]
+[{"prod":{"titlle":"mesa","price":"1000","stock":"5"}},{"prod":{"titlle":"silla","price":"4000","stock":"10"}},{"prod":{"titlle":"cubo","price":"1","stock":"1"}}]

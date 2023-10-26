@@ -49,26 +49,13 @@ const httpserver = app.listen(PORT,()=>{
 const socketServer = new Server(httpserver)
 
 const names = []
-socketServer.on("conection", (socket)=>{
-    //console.log(`cliente conectado`);
-    socket.on("disconnect", ()=>{
-        //console.log(`cliente desconectado ${socket.id}`);
-    });
-
-    socket.on("primerevento", (info) =>{
-        names.push(info);
-        //console.log(`Array : ${names}`);
-        //socket.emit("segundoevento", names)
-        socketServer.emit("segundoevento", names)
-    })
-});
-
 
 socketServer.on("connection", (socket)=>{
     console.log(`cliente conectado : ${socket.id}`);
 
 socket.on(`crearproduct`, async (product)=>{
-    const newProduct = await productManager.createProduct(product)
+    const newProduct = await productManager.addProducts(product)
+    console.log(newProduct);
     socket.emit(`productCreated`, newProduct)
 })
 });

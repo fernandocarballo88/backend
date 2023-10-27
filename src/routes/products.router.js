@@ -16,5 +16,10 @@ router.post("/",async (req, res) => {
     }
 });
 
+router.get("/", async (req, res) =>{
+    const products = await productsManager.findAllProducts(req.query)
+    res.json({products})
+})
+
 
 export default router;

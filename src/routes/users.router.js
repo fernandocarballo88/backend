@@ -17,16 +17,8 @@ router.post("/",async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-    try {
-    const users = await usersManager.findAll();
-    if (!users.length) {
-        res.status(200).json({ message: "No se encotraron usuarios" });
-    } else {
-        res.status(200).json({ message: "Usarios encontrados", users });
-    }
-    } catch (error) {
-    res.status(500).json({ message: error });
-    }
+    const response = await usersManager.findAll()
+    res.json({response});
 });
 
 router.get("/:idUser", async (req, res) => { 

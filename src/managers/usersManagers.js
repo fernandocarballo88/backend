@@ -2,7 +2,7 @@ import { userModel } from "../db/models/users.modules.js";
 
 class UsersManager {
     async findAll(){
-        return userModel.find()
+        return userModel.paginate({}, {})
     }
 
     async findById(id){

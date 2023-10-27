@@ -5,6 +5,7 @@ import "./db/configDB.js";
 import viewsRouter from "./routes/views.router.js"
 import usersRouter from "./routes/users.router.js"
 import productsRouter from "./routes/products.router.js"
+import coursesRouter from "./routes/courses.router.js"
 
 
 const app = express()
@@ -21,6 +22,9 @@ app.set('views', __dirname+'/views');
 app.use("/", viewsRouter)
 app.use("/api/products", productsRouter)
 app.use("/api/users", usersRouter)
+
+
+app.use("/api/courses", coursesRouter)
 
 
 app.listen(8080, ()=>{

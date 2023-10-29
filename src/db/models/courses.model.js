@@ -12,7 +12,7 @@ const coursesSchema = new mongoose.Schema({
         }
     ],
     teacher: {
-        type: mongoose.SchemaType.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: "Users"
     },
 

@@ -9,6 +9,8 @@ import handlebars from "express-handlebars"
 import viewsRouter from "./router/views.router.js"
 import { Server } from "socket.io"
 import { productManager } from "./ManagerProductos.js"
+import cartRouter from "./routes/cart.routes.js"
+import loginRouter from "./routes/login.router.js"
 import cookieParser from "cookie-parser";
 
 const app = express()
@@ -32,6 +34,9 @@ app.get('/get-cookie', (req, res) =>{
     const { idioma } = req.cookies;
     idioma === ingles? res.send('hello') : res.send('hola')
 })
+app.use('/login', loginRouter)
+
+
 
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
@@ -41,6 +46,8 @@ app.set('views', __dirname+'/views');
 app.use("/api/products", productsRouter);
 app.use("/api", viewsRouter)
 app.use("/api/users", usersRouter);
+app.use("/api/cart", cartRouter)
+
 /*
 app.get("/pag1",(req,res)=>{
     res.send("Pagina 1")

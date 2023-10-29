@@ -16,7 +16,7 @@ router.delete("/:cid/products/:pid", async (req, res)=>{
 
 })
 
-router.delete("/:cid", deleteCart); 
+router.delete("/:cid", cartManagers.deleteCart); 
 
 
 

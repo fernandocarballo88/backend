@@ -7,6 +7,10 @@ import usersRouter from "./routes/users.router.js"
 import productsRouter from "./routes/products.router.js"
 import coursesRouter from "./routes/courses.router.js"
 import cartRouter from "./routes/cart.routes.js"
+import loginRouter from "./routes/login.router.js"
+import cookieParser from "cookie-parser";
+import session from "express-session";
+import FileStore from "session-file-store";
 
 
 const app = express()
@@ -20,11 +24,35 @@ app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
 app.set('views', __dirname+'/views');
 
+const fileStore = FileStore(session)
+app.use(session({
+    secret: "secret",
+    cookie:{
+        maxAge: 1000,
+    },
+    store: new fileStore({
+        path: __dirname+ "/sessions",
+    })
+})
+);
+
+const secret = `123456`
+app.use(cookieParser(secret))
+
+app.get('/set-cookie', (req, res) =>{
+    res.cookie('idioma', 'ingles').json({msj:'ok'});
+})
+
+app.get('/get-cookie', (req, res) =>{
+    const { idioma } = req.cookies;
+    idioma === ingles? res.send('hello') : res.send('hola')
+})
+app.use('/login', loginRouter)
+
+
 app.use("/", viewsRouter)
 app.use("/api/products", productsRouter)
 app.use("/api/users", usersRouter)
-
-
 app.use("/api/courses", coursesRouter)
 app.use("/api/cart", cartRouter)
 

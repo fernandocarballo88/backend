@@ -10,4 +10,9 @@ router.get("/createproduct",(req,res)=>{
     res.render("createProduct")
 });
 
+
+router.get('/', (req, res)=>{
+    res.render('login')
+})
+
 export default router;

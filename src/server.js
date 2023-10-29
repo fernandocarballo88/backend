@@ -9,6 +9,8 @@ import handlebars from "express-handlebars"
 import viewsRouter from "./router/views.router.js"
 import { Server } from "socket.io"
 import { productManager } from "./ManagerProductos.js"
+import cookieParser from "cookie-parser";
+
 const app = express()
 // no es necesario que se app, puede ser cualquier nombre  
 // generalmente se nombra la constante app
@@ -18,6 +20,18 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
 app.use(express.static(__dirname+"/public"))
+
+const secret = `123456`
+app.use(cookieParser(secret))
+
+app.get('/set-cookie', (req, res) =>{
+    res.cookie('idioma', 'ingles').json({msj:'ok'});
+})
+
+app.get('/get-cookie', (req, res) =>{
+    const { idioma } = req.cookies;
+    idioma === ingles? res.send('hello') : res.send('hola')
+})
 
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
@@ -59,3 +73,4 @@ socket.on(`crearproduct`, async (product)=>{
     socket.emit(`productCreated`, newProduct)
 })
 });
+

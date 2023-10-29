@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { coursesModel } from "../db/models/courses.model";
+import { coursesModel } from "../db/models/courses.model.js";
 
 class CoursesModel {
 

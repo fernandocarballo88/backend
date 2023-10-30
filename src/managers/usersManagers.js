@@ -14,6 +14,11 @@ class UsersManager {
 
     }
 
+    async findByEmail(email){
+        const response = await userModel.findOne(email)
+        return response;
+    }
+
     async updateOne(id,obj){
         return userModel.updateOne({_id:id}, { obj });
     }

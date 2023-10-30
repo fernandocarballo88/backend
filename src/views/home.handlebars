@@ -20,6 +20,8 @@
 
 <h3>Home Handle Bars</h3>
 
+<h2> HOLA {{first_name}}</h2>, confirma que tu email es{{email}}
+
 
 {{#each products}}
 <tr>
@@ -28,6 +30,8 @@
     <td>{{price}}</td>
 </tr>
 {{/each}}
+
+<button onclick="location.href='/api/users/logout'">LOGOUT</button>
     
 </body>
 </table>

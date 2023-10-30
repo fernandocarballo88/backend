@@ -15,4 +15,9 @@ router.get('/', (req, res)=>{
     res.render('login')
 })
 
+router.get('/home', (req,res)=>{
+    console.log('req', req)
+    res.render("home");
+})
+
 export default router;

@@ -1,7 +1,32 @@
 import { Router } from "express";
 import { usersManager } from "../managers/usersManagers.js";
+import { compareData, hashData } from "../utils.js";
 
 const router = Router()
+
+router.post("/login", async (req, res)=>{
+    const {email, password} = req.body
+    const userDB = await usersManager.findByEmail(email);
+
+    const comparedPassword = await compareData(password, userDB.password);
+    if(!comparedPassword){
+        return res.json({ error: "contaseña equivocada" })
+    }
+    req.session["email"] = email;
+    req.session["isAdmin"] = 
+    email === "adminCoder@coder.com" && password === "Coder123" ? true : false;
+    
+    res.redirect("/home");
+});
+
+router.post("/signup", async (req, res)=>{
+    const {password} = req.body
+    const hashedPassword = await hashData(password)
+    const createdUser = await usersManager.createOne({...req.body, password:hashedPassword});
+    res.status(200).json({message: "usuario creado", createdUser})
+});
+
+
 
 router.post("/",async (req, res) => {
     const { firstname, lastname, email, contraseña } = req.body;
@@ -33,6 +58,12 @@ router.get("/:idUser", async (req, res) => {
     } catch (error) {
     res.status(500).json({ message: error });
     }
+});
+
+router.get('/logout', (req,res)=>{
+    req.session.destroy(()=>{
+        res.redirect("/")
+    });
 });
 
 export default router;

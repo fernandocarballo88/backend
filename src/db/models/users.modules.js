@@ -23,6 +23,10 @@ const userSchema = new Schema({
     gender: {
         type: String,
     },
+    from_github:{
+        type: Boolean,
+        defeaul: false,
+    },
 
 });
 userSchema.plugin(mongoosePaginate)

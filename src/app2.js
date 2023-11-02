@@ -11,6 +11,10 @@ import loginRouter from "./routes/login.router.js"
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import FileStore from "session-file-store";
+import MongoStore from "connect-mongo";
+import passport from "passport";
+import "./passport.js";
+
 
 
 const app = express()
@@ -36,8 +40,15 @@ app.use(session({
 })
 );
 
-
-
+app.use(
+    session({
+        store : new MongoStore({
+            mongoUrl: "mongodb+srv://fernandocarballo:sjLp0F6pI0c5fAyJ@cluster0.q3b4odx.mongodb.net/desafioCoder?retryWrites=true&w=majority"
+        }),
+        secret: "secret_key",
+        cookie:{ maxAge: 1000 },
+    })
+);
 const secret = `123456`
 app.use(cookieParser(secret))
 
@@ -49,6 +60,10 @@ app.get('/get-cookie', (req, res) =>{
     const { idioma } = req.cookies;
     idioma === ingles? res.send('hello') : res.send('hola')
 })
+
+app.use(passport.initialize());
+app.use(passport.session())
+
 app.use('/login', loginRouter)
 
 

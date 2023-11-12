@@ -15,6 +15,7 @@ import MongoStore from "connect-mongo";
 import passport from "passport";
 import "./passport.js";
 import clientsRouter from "./routes/clients.router.js"
+import { clientCustomRouter } from "./routes/clientsCustom.router.js";
 
 
 
@@ -73,7 +74,9 @@ app.use("/api/products", productsRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/courses", coursesRouter)
 app.use("/api/cart", cartRouter)
-app.use("/api/clients", clientsRouter)
+//app.use("/api/clients", clientsRouter)
+app.use("/api/clients", clientCustomRouter.getRouter());
+
 
 
 

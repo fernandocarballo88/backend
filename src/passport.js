@@ -3,6 +3,10 @@ import { usersManager } from "./managers/usersManagers.js";
 import { Strategy as LocalStrategy} from "passport-local";
 import  { hashData, compareData } from "./utils.js"
 import { Strategy as GitHubStrategy } from "passport-github2";
+import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
+
+const JWT_SECRET = "jwtSECRET" 
+
 
 passport.serializeUser(function(user, done) {
     done(null, user._id);
@@ -88,3 +92,17 @@ async(accessToken, refreshToken, profile, done)=>{
 }
 ));
 
+const fromCookies = (req)=>{
+    return req.cookies.token;
+};
+
+passport.use("jwt", new JWTStrategy(
+    {
+    secretOrKey: JWT_SECRET,
+    jwtFromRequest: ExtractJwt.fromExtractors([fromCookies]),
+},
+async(jwt_payload, done)=>{
+    console.log("jwt-passport", jwt_payload);
+    done(null, false)
+}
+))

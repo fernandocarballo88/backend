@@ -2,10 +2,13 @@ import { Router } from "express";
 import { usersManager } from "../managers/usersManagers.js";
 import { compareData, hashData } from "../utils.js";
 import passport from "passport";
+import { generateToken } from "../utils.js";
+import { jwtValidation } from "../middleware/jwt.middleware.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const router = Router()
 
-//router.post("/login", async (req, res)=>{
+router.post("/login", async (req, res)=>{
     const {email, password} = req.body
     const userDB = await usersManager.findByEmail(email);
 
@@ -16,9 +19,18 @@ const router = Router()
     req.session["email"] = email;
     req.session["isAdmin"] = 
     email === "adminCoder@coder.com" && password === "Coder123" ? true : false;
-    
+
+    const token = generateToken({email, first_name: userDB.first_name, role: userDB.role})
+    console.log(token);
     res.redirect("/home");
-//});
+
+    res
+    .status(200)
+    .cookie("token", token)
+    .json({message:"bienvenido"})
+});
+
+
 
 /*router.post("/signup", async (req, res)=>{
     const {password} = req.body
@@ -27,8 +39,9 @@ const router = Router()
     res.status(200).json({message: "usuario creado", createdUser})
 });*/
 
-router.get("/:idUser", async (req, res) => { 
+router.get("/:idUser", passport.authenticate("jwt"), authMiddleware("admin"), async (req, res) => { 
     const { idUser } = req.params;
+    console.log("req.user", req.user);
     try {
     const user = await usersManager.findById(id);
     if (!user) {
@@ -53,7 +66,8 @@ router.post("/login", passport.authenticate('login', {
 })
 );
 
-router.get('/auth/github',
+router.get(
+    '/auth/github',
 passport.authenticate('github', { scope: [ 'user:email' ] }));
 
 router.get('/github', 

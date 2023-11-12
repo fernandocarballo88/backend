@@ -14,6 +14,7 @@ import FileStore from "session-file-store";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import "./passport.js";
+import clientsRouter from "./routes/clients.router.js"
 
 
 
@@ -72,6 +73,7 @@ app.use("/api/products", productsRouter)
 app.use("/api/users", usersRouter)
 app.use("/api/courses", coursesRouter)
 app.use("/api/cart", cartRouter)
+app.use("/api/clients", clientsRouter)
 
 
 

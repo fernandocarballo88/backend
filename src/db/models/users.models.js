@@ -27,8 +27,14 @@ const userSchema = new Schema({
         type: Boolean,
         default: false,
     },
-
+    roles:{
+        type: String,
+        enum: ["admin", "premium", "client"],
+        default: "client",
+    },
 });
+
+
 userSchema.plugin(mongoosePaginate)
 export const userModel = model("Users", userSchema)
 

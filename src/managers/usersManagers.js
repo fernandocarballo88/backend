@@ -1,5 +1,19 @@
 import { userModel } from "../db/models/users.models.js";
+import BasicManager from "./basicManager.js";
 
+class UsersManager extends BasicManager{
+    constructor(){
+        super(userModel, "cart");
+    }
+
+    async findByEmail(email){
+        return userModel
+        .findOne({ email})
+        .populate({ path: "cart", populate:{ path: "products.product"}});
+    }
+}
+
+/*
 class UsersManager {
     async findAll(){
         return userModel.paginate({}, {})
@@ -27,5 +41,6 @@ class UsersManager {
         return userModel.findByIdAndDelete(id)
     }   
 }
+*/
 
 export const usersManager = new UsersManager();

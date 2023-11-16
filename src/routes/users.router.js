@@ -5,6 +5,7 @@ import passport from "passport";
 import { generateToken } from "../utils.js";
 import { jwtValidation } from "../middleware/jwt.middleware.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
+import { cartManagers } from "../managers/cartManagers.js";
 
 const router = Router()
 
@@ -83,7 +84,8 @@ router.post("/",async (req, res) => {
     return res.status(400).json({ message: "faltan datos" });
     }
     try {
-    const newUser = await usersManager.createOne(req.body);
+    const createdCart = cartManagers.createOne({products: []});
+    const newUser = await usersManager.createOne({...req.body, cart: createdCart._id});
     res.status(200).json({ message: "usuario creado" , user : newUser});
     } catch (error) {
     res.status(500).json({ message: error });

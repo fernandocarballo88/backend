@@ -1,4 +1,4 @@
-import {Schema,model} from "mongoose";
+import mongoose, {Schema,model} from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 
@@ -22,6 +22,10 @@ const userSchema = new Schema({
     },
     gender: {
         type: String,
+    },
+    cart:{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Carts",
     },
     from_github:{
         type: Boolean,

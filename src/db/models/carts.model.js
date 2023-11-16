@@ -11,11 +11,12 @@ const cartSchema = new mongoose.Schema({
         quantity: {
             type: Number,
         },
+        _id: false,
         },
     ],
-
+    default:[]
 });
 
 cartSchema.plugin(mongoosepaginate);
 
-export const cartsModel = mongoose.model("Carts", cartSchema)
+export const cartsModel = mongoose.model("Carts", cartSchema);

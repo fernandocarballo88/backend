@@ -16,7 +16,7 @@ import passport from "passport";
 import "./passport.js";
 import clientsRouter from "./routes/clients.router.js"
 import { clientCustomRouter } from "./routes/clientsCustom.router.js";
-
+import config from "./config.js"
 
 
 const app = express()

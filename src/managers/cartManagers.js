@@ -1,19 +1,10 @@
 import { cartsModel } from "../db/models/carts.model.js";
+import BasicManager from "./basicManager.js";
 
-class CartManager {
-
-  async addProductToCart(cartId) {
-    return cartsModel.findById(cartId)
-  }
-
-
-  async deleteProductCart(cartId) {
-    return cartsModel.deleteOne(cartId)
-  }
-
-  async deleteCart() {
-    return cartsModel.deleteMany
-  }
+class CartManager extends BasicManager{
+    constructor(){
+        super(cartsModel, "products.product");
+    }
 }
 
 export const cartManagers = new CartManager();

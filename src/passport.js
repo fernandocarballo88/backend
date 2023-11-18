@@ -4,8 +4,22 @@ import { Strategy as LocalStrategy} from "passport-local";
 import  { hashData, compareData } from "./utils.js"
 import { Strategy as GitHubStrategy } from "passport-github2";
 import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
-
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import config from "./config.js"
 const JWT_SECRET = "jwtSECRET" 
+
+passport.use(
+    "google",
+    new GoogleStrategy({
+    clientID: config.google_client_id,
+    clientSecret: config.google_client_secret,
+    callbackURL: config.google_callback_url,
+  },
+  async ( accessToken, refreshToken, profile, done)=>{
+
+  }
+    ))
+
 
 
 passport.serializeUser(function(user, done) {

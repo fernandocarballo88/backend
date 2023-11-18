@@ -31,6 +31,11 @@ const userSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    from_google:{
+        type:Boolean,
+        default:false,
+
+    },
     roles:{
         type: String,
         enum: ["admin", "premium", "client"],

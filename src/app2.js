@@ -17,6 +17,8 @@ import "./passport.js";
 import clientsRouter from "./routes/clients.router.js"
 import { clientCustomRouter } from "./routes/clientsCustom.router.js";
 import config from "./config.js"
+import sessionsRouter from "./routes/session.router.js"
+
 
 
 const app = express()
@@ -76,6 +78,7 @@ app.use("/api/courses", coursesRouter)
 app.use("/api/cart", cartRouter)
 //app.use("/api/clients", clientsRouter)
 app.use("/api/clients", clientCustomRouter.getRouter());
+app.use("api/sessions", sessionsRouter)
 
 
 

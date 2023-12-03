@@ -1,5 +1,21 @@
 import {Schema,model} from "mongoose";
 import mongoosepaginate from "mongoose-paginate-v2";
+import { sequelize } from "../configDB.js";
+import { DataTypes } from "sequelize";
+
+
+export const Product = sequelize.define("product",{
+    id:{
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primarykey: true,
+    },
+    name:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        },
+    
+})
 
 
 const productsSchema = new Schema({

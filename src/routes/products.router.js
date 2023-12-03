@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { productsManager } from "../managers/productsManagers.js";
+import { Product } from "../db/models/products.models.js";
 
 const router = Router()
 
@@ -21,5 +22,9 @@ router.get("/", async (req, res) =>{
     res.json({products})
 })
 
+router.post("/", async (req,res)=>{
+    const createdProduct = await Product.create(req.body);
+    res.json({message: "producto creado", product: createdProduct})
+});
 
 export default router;

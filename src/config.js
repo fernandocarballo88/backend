@@ -18,6 +18,8 @@ const obj ={
     db_password: process.env.DB_PASSWORD,
     db_host: process.env.DB_HOST,
     db_dialect: process.env.DB_DIALECT,
+    gmail_user: process.env.GMAIL_USER,
+    gmail_password: process.env.GMAIL_PASSWORD,
 };
 
 

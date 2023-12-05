@@ -18,6 +18,8 @@ import clientsRouter from "./routes/clients.router.js"
 import { clientCustomRouter } from "./routes/clientsCustom.router.js";
 import config from "./config.js"
 import sessionsRouter from "./routes/session.router.js"
+import messagesRouter from "./routes/messages.router.js"
+
 
 
 
@@ -79,7 +81,7 @@ app.use("/api/cart", cartRouter)
 //app.use("/api/clients", clientsRouter)
 app.use("/api/clients", clientCustomRouter.getRouter());
 app.use("api/sessions", sessionsRouter)
-
+app.use("api/sessions", messagesRouter)
 
 
 

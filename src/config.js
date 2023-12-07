@@ -20,6 +20,8 @@ const obj ={
     db_dialect: process.env.DB_DIALECT,
     gmail_user: process.env.GMAIL_USER,
     gmail_password: process.env.GMAIL_PASSWORD,
+    twilio_account_sid: process.env.TWILIO_ACCOUNT_SID,
+    twilio_account_auth_token: process.env.TWILIO_ACCOUNT_AUTH_TOKEN,
 };
 
 
